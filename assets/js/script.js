@@ -42,10 +42,9 @@ $( document ).ready(function() {
   $( ".description" ).each(function() {
     // get the hour of the time block using the id of the parent element
     const parentId = $(this).parent().attr('id');
-    const storedText = localStorage.getItem(parentId);
 
     // display the text that has been stored under the parent's id
-    $(this).val(storedText);
+    $(this).val(localStorage.getItem(parentId));
   });
 
   // displays the current date in the header of the page.
