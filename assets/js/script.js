@@ -1,23 +1,49 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
+// run this once all the html elements have been rendered
+$( document ).ready(function() {
+
+  // when a save button is clicked
+  $( ".saveBtn" ).click(function() {
+    // get the hour of the whole time block using the id of the parent element
+    const time = $(this).parent().attr('id');
+    // get the text input from the description field within the same parent as the button clicked
+    const text = $(this).siblings(".description").val();
+
+    // store text in local storage under the hour-# id
+    localStorage.setItem(time, text)
+  });
+
+  // for each time block that exists on the page
+  $( ".time-block" ).each(function() {
+    // get the just the numerical hour of the time block from the id by removing "hour-"
+    const blockHour = ($(this).attr('id')).replace("hour-", "");
+    // get the current hour in 24 hr time
+    const currentHour = dayjs().hour();
+
+    // change the time block's class depending on the current hour
+    if (blockHour < currentHour) {
+      $(this).addClass("past");
+    // use loose equality rather than strict since blockHour is a string
+    } else if (blockHour == currentHour) {
+      $(this).addClass("present");
+    } else {
+      $(this).addClass("future");
+    }
+  });
+
+  // for every description field that exists on the page
+  $( ".description" ).each(function() {
+    // get the hour of the time block using the id of the parent element
+    const parentId = $(this).parent().attr('id');
+    const storedText = localStorage.getItem(parentId);
+
+    // display the text that has been stored under the parent's id (if any)
+    if (storedText) {
+      $(this).val(storedText);
+    }
+  });
+
+  // displays the current date in the header of the page.
+  const today = dayjs();
+  $("#currentDay").text(today.format('dddd, MMMM D'));
+
 });
