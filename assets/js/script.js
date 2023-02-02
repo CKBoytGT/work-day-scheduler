@@ -9,7 +9,15 @@ $( document ).ready(function() {
     const text = $(this).siblings(".description").val();
 
     // store text in local storage under the hour-# id
-    localStorage.setItem(time, text)
+    localStorage.setItem(time, text);
+
+    // display the "appointment added" message
+    $('#apptAdded').removeClass('d-none');
+
+    // hide the message after 2.5 seconds
+    setTimeout(function() {
+      $('#apptAdded').addClass('d-none');
+    }, 2500);
   });
 
   // for each time block that exists on the page
