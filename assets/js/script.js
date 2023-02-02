@@ -9,7 +9,15 @@ $( document ).ready(function() {
     const text = $(this).siblings(".description").val();
 
     // store text in local storage under the hour-# id
-    localStorage.setItem(time, text)
+    localStorage.setItem(time, text);
+
+    // display the "appointment added" message
+    $('#apptAdded').removeClass('d-none');
+
+    // hide the message after 2.5 seconds
+    setTimeout(function() {
+      $('#apptAdded').addClass('d-none');
+    }, 2500);
   });
 
   // for each time block that exists on the page
@@ -36,10 +44,8 @@ $( document ).ready(function() {
     const parentId = $(this).parent().attr('id');
     const storedText = localStorage.getItem(parentId);
 
-    // display the text that has been stored under the parent's id (if any)
-    if (storedText) {
-      $(this).val(storedText);
-    }
+    // display the text that has been stored under the parent's id
+    $(this).val(storedText);
   });
 
   // displays the current date in the header of the page.

@@ -26,11 +26,13 @@
 
   <body>
     <!-- header -->
-    <header class="p-5 mb-4">
+    <header class="p-2 text-center">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
+    <!-- appointement added message -->
+    <p id="apptAdded" class="m-1 text-center d-none">Appointment added to <code>localStorage</code> ✔</p>
     <!-- time blocks from 9AM to 5PM -->
     <div class="container-fluid px-5">
       <div id="hour-9" class="row time-block">
