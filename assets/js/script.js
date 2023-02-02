@@ -25,7 +25,7 @@ $( document ).ready(function() {
     // get the just the numerical hour of the time block from the id by removing "hour-"
     const blockHour = ($(this).attr('id')).replace("hour-", "");
     // get the current hour in 24 hr time
-    const currentHour = 12; //dayjs().hour();
+    const currentHour = dayjs().hour();
 
     // change the time block's class depending on the current hour
     if (blockHour < currentHour) {
